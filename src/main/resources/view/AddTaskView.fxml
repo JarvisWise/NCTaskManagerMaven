@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ua.edu.sumdu.j2se.kolisnyk.tasks.controller.AddTaskController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <HBox alignment="CENTER_LEFT" layoutX="21.0" layoutY="68.0" prefHeight="36.0" prefWidth="434.0">
+            <children>
+                <Label text="Start Time" textAlignment="CENTER" />
+                <DatePicker fx:id="startDateField" />
+                <Label text="(HH:MM)" />
+                <TextField fx:id="startTimeField" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="21.0" layoutY="20.0" prefHeight="36.0" prefWidth="200.0">
+            <children>
+                <Label lineSpacing="2.0" text="Title">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets></Label>
+                <TextField fx:id="titleField" />
+            </children>
+            <opaqueInsets>
+                <Insets top="2.0" />
+            </opaqueInsets>
+        </HBox>
+        <CheckBox fx:id="checkActive" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" text="Active" />
+        <CheckBox fx:id="checkRepeated" layoutX="21.0" layoutY="126.0" mnemonicParsing="false" onAction="#onChangedRepeated" text="Repeated" />
+        <VBox fx:id="forRepeatedTask" layoutX="14.0" layoutY="193.0" prefHeight="99.0" prefWidth="504.0" visible="false">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="283.0">
+                    <children>
+                        <Label text="End Time" />
+                        <DatePicker fx:id="endDateField" />
+                        <Label text="(HH:MM)" />
+                        <TextField fx:id="endTimeField" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="485.0">
+                    <children>
+                        <Label text="Interval (HH:MM:SS)" />
+                        <TextField fx:id="intervalField" />
+                    </children>
+                </HBox>
+            </children></VBox>
+        <Button layoutX="444.0" layoutY="349.0" mnemonicParsing="false" onAction="#onClickAddButton" text="Add" />
+        <Button layoutX="498.0" layoutY="349.0" mnemonicParsing="false" onAction="#onClickCancelButton" text="Cancel" />
+    </children>
+</AnchorPane>

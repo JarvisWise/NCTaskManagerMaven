@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ua.edu.sumdu.j2se.kolisnyk.tasks.controller.EditTaskController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <HBox alignment="CENTER_LEFT" layoutX="26.0" layoutY="41.0" prefHeight="25.0" prefWidth="200.0">
+            <children>
+                <Label text="Title" />
+                <TextField fx:id="titleField" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="26.0" layoutY="78.0" prefHeight="25.0" prefWidth="448.0">
+            <children>
+                <Label text="Start TIme" />
+                <DatePicker fx:id="startDateField" />
+                <Label text="(HH:MM)" />
+                <TextField fx:id="startTimeField" />
+            </children>
+        </HBox>
+        <CheckBox fx:id="checkActive" layoutX="26.0" layoutY="153.0" mnemonicParsing="false" text="Active" />
+        <CheckBox fx:id="checkRepeated" layoutX="26.0" layoutY="117.0" mnemonicParsing="false" onAction="#onChangedRepeated" text="Repeated" />
+        <VBox fx:id="forRepeatedTask" layoutX="14.0" layoutY="193.0" prefHeight="110.0" prefWidth="504.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="440.0">
+                    <children>
+                        <Label text="End Time" />
+                        <DatePicker fx:id="endDateField" />
+                        <Label text="(HH:MM)" />
+                        <TextField fx:id="endTimeField" prefHeight="25.0" prefWidth="150.0" />
+                    </children></HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="504.0">
+                    <children>
+                        <Label text="Interval" />
+                        <TextField fx:id="intervalField" />
+                    </children></HBox>
+            </children></VBox>
+        <Button layoutX="397.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickEditButton" text="Edit" />
+        <Button layoutX="449.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickDeleteButton" text="Delete" />
+        <Button layoutX="516.0" layoutY="345.0" mnemonicParsing="false" onAction="#onClickCancelButton" text="Cancel" />
+    </children>
+</AnchorPane>
