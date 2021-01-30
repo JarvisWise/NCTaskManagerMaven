@@ -20,15 +20,15 @@ public class TaskManagerModel {
      */
 
     public TaskManagerModel() throws IOException {
-        dataFile = new File(System.getProperty("user.dir") + "\\data.txt");
+        dataFile = new File(System.getProperty("user.dir") + "\\data.json");
 
         taskList = new ArrayTaskList();
         try {
             if (!dataFile.exists()) {
                 if(dataFile.createNewFile()) {
-                    log.info("data.txt file created");
+                    log.info("data.json file created");
                 } else {
-                    log.error("data.txt file was not created");
+                    log.error("data.json file was not created");
                     throw new IOException("File to save data was not created!");
                 }
             } else {

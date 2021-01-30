@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		if(Controller.isInitialize) {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/TaskManagerMenuView.fxml")); //view/TaskManagerMenuView.fxml
+			Parent root = FXMLLoader.load(getClass().getResource("/view/TaskManagerMenuView.fxml"));
 			primaryStage.setTitle("TaskManager");
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
