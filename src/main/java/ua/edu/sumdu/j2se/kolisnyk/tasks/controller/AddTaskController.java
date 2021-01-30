@@ -55,6 +55,13 @@ public class AddTaskController {
             return;
         }
 
+        if (startDateTime.compareTo(LocalDateTime.now()) < 0) {
+            Controller.showWarningAlert("Wrong input",
+                    "Start in past",
+                    "Start time cannot be before current time");
+            return;
+        }
+
         boolean isActive = checkActive.isSelected();
         if (!checkRepeated.isSelected()) {
             newTask = new Task(title, startDateTime);

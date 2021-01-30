@@ -43,6 +43,13 @@ public class CalendarController {
             return;
         }
 
+        if (startDateTime.compareTo(LocalDateTime.now()) < 0) {
+            Controller.showWarningAlert("Wrong input",
+                    "Start in past",
+                    "Start time cannot be before current time");
+            return;
+        }
+
         try {
             LocalDate endLocalDate = calendarEndDateFiled.getValue();
             LocalTime endLocalTime = LocalTime.parse(calendarEndTimeFiled.getText(),formatterTime);
