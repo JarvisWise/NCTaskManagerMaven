@@ -35,7 +35,7 @@
                     </children></HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="504.0">
                     <children>
-                        <Label text="Interval" />
+                        <Label text="Interval (HH:MM:SS)" />
                         <TextField fx:id="intervalField" />
                     </children></HBox>
             </children></VBox>
