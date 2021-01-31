@@ -9,14 +9,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertHeader;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertTitle;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ViewFilePath;
 import ua.edu.sumdu.j2se.kolisnyk.tasks.model.Task;
 import ua.edu.sumdu.j2se.kolisnyk.tasks.model.TaskManagerModel;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
+import static ua.edu.sumdu.j2se.kolisnyk.tasks.controller.Controller.*;
 
 /**
  * Class EditTaskController is responsible for
@@ -25,8 +27,6 @@ import java.time.format.DateTimeFormatter;
 
 public class EditTaskController {
 
-    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-    private static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static Task selectedTask;
     public TextField titleField;
     public TextField startTimeField;
@@ -79,7 +79,8 @@ public class EditTaskController {
         } else {
             TaskManagerModel.log.warn("Unexpected open EditTaskController, selectedTask must be not null");
             try {
-                Parent TaskManagerMenuParent = FXMLLoader.load(Controller.class.getResource("../view/TaskManagerMenuView.fxml"));
+                Parent TaskManagerMenuParent = FXMLLoader.load(Controller.class.getResource(
+                        ".." + ViewFilePath.TASK_MENU_MANAGER_VIEW_PATH.getPath()));
                 Scene TaskManagerMenuScene = new Scene(TaskManagerMenuParent);
                 Stage currentStage = (Stage) intervalField.getScene().getWindow();
                 currentStage.setScene(TaskManagerMenuScene);
@@ -96,71 +97,20 @@ public class EditTaskController {
      */
 
     public void onClickEditButton(ActionEvent actionEvent) {
-        Task newTask;
-        LocalDateTime startDateTime;
 
-        String title = titleField.getText();
-        if (titleField.getText().equals("")) {
-            Controller.showWarningAlert("Wrong input",
-                    "Title field",
-                    "Please enter the title");
+        Task newTask = createTask(titleField, startDateField,
+                startTimeField, checkActive, checkRepeated,
+                endDateField, endTimeField, intervalField);
+
+        if (newTask == null) {
             return;
-        }
-
-        try {
-            LocalDate startLocalDate = startDateField.getValue();
-            LocalTime startLocalTime = LocalTime.parse(startTimeField.getText(), formatterTime);
-            startDateTime = startLocalDate.atTime(startLocalTime);
-        } catch (Exception e) {
-            Controller.showWarningAlert("Wrong input",
-                    "Time Field",
-                    "Please enter the start time correct");
-            return;
-        }
-
-        if (startDateTime.compareTo(LocalDateTime.now()) < 0) {
-            Controller.showWarningAlert("Wrong input",
-                    "Start in past",
-                    "Start time cannot be before current time");
-            return;
-        }
-
-        boolean isActive = checkActive.isSelected();
-        if (!checkRepeated.isSelected()) {
-            newTask = new Task(title, startDateTime);
-            newTask.setActive(isActive);
-        } else {
-            LocalDateTime endDateTime;
-            int interval;
-
-            try {
-                LocalDate endLocalDate = endDateField.getValue();
-                LocalTime endLocalTime = LocalTime.parse(endTimeField.getText(), formatterTime);
-                endDateTime = endLocalDate.atTime(endLocalTime);
-                interval = (LocalTime.parse(intervalField.getText(), formatterInterval)).toSecondOfDay();
-            } catch (Exception e) {
-                Controller.showWarningAlert("Wrong input",
-                        "Time Field",
-                        "Please enter the end time or interval correct");
-                return;
-            }
-
-            if (endDateTime.compareTo(startDateTime) < 0) {
-                Controller.showWarningAlert("Wrong input",
-                        "Start and end time",
-                        "Start time cannot be after end time");
-                return;
-            }
-
-            newTask = new Task(title, startDateTime, endDateTime, interval);
-            newTask.setActive(isActive);
         }
 
         try {
             Controller.model.changeTask(selectedTask, newTask);
         } catch (IOException e) {
-            Controller.showWarningAlert("File problem",
-                    "Edit task",
+            Controller.showWarningAlert(AlertTitle.FILE_PROBLEM.getTitle(),
+                    AlertHeader.EDIT_TASK.getHeader(),
                     "Problems with file system, task was not changed");
             TaskManagerModel.log.warn("The task has not been changed", e);
             return;
@@ -179,8 +129,8 @@ public class EditTaskController {
         try {
             Controller.model.removeTask(selectedTask);
         } catch (IOException e) {
-            Controller.showWarningAlert("File problem",
-                    "Delete task",
+            Controller.showWarningAlert(AlertTitle.FILE_PROBLEM.getTitle(),
+                    AlertHeader.DELETE_TASK.getHeader(),
                     "Problems with file system, task was not deleted");
             TaskManagerModel.log.warn("The task has not been deleted", e);
             return;
@@ -196,7 +146,7 @@ public class EditTaskController {
 
     public void onClickCancelButton(ActionEvent actionEvent) {
         selectedTask = null;
-        Controller.changeScene("/view/TaskManagerMenuView.fxml", actionEvent);
+        Controller.changeScene(ViewFilePath.TASK_MENU_MANAGER_VIEW_PATH.getPath(), actionEvent);
     }
 
     /**
@@ -205,11 +155,7 @@ public class EditTaskController {
      */
 
     public void onChangedRepeated() {
-        if (checkRepeated.isSelected()) {
-            forRepeatedTask.setVisible(true);
-        } else {
-            forRepeatedTask.setVisible(false);
-        }
+        forRepeatedTask.setVisible(checkRepeated.isSelected());
     }
 }
 

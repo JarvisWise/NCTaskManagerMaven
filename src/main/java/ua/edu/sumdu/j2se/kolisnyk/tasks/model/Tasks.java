@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -14,15 +16,15 @@ public class Tasks {
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
 
         if (tasks == null) {
-            throw new NullPointerException("Tasks cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TASKS_NOT_NULL.getMessage());
         }
 
         if (start == null || end == null) {
-            throw new NullPointerException("Time cannot be null!");
+            throw new NullPointerException(ExceptionMessage.START_AND_END_NOT_NULL.getMessage());
         }
 
         if (end.compareTo(start) < 0) {
-            throw new IllegalArgumentException("Start time  cannot be less then end time!");
+            throw new IllegalArgumentException(ExceptionMessage.START_AFTER_END.getMessage());
         }
 
         ArrayList<Task> list = new ArrayList<>();
@@ -33,24 +35,21 @@ public class Tasks {
             }
         }
 
-        //Iterator<Task> itr = tasks.iterator();
-        //Stream<Task> stream = StreamSupport.stream(Spliterators.spliteratorUnknownSize(itr, 0), false);
-        //stream.filter((t) -> t.nextTimeAfter(start) != null && t.nextTimeAfter(start).compareTo(end) <= 0).forEach(list::add);
         return list;
     }
 
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
 
         if (tasks == null) {
-            throw new NullPointerException("Tasks cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TASKS_NOT_NULL.getMessage());
         }
 
         if (start == null || end == null) {
-            throw new NullPointerException("Time cannot be null!");
+            throw new NullPointerException(ExceptionMessage.START_AND_END_NOT_NULL.getMessage());
         }
 
         if (end.compareTo(start) < 0) {
-            throw new IllegalArgumentException("Start time  cannot be less then end time!");
+            throw new IllegalArgumentException(ExceptionMessage.START_AFTER_END.getMessage());
         }
 
         SortedMap<LocalDateTime, Set<Task>> map = new TreeMap<>();
@@ -61,7 +60,6 @@ public class Tasks {
                     HashSet<Task> set = new HashSet<>();
                     set.add(task);
                     map.put(i, set);
-                    //map.put(i, new HashSet<Task>(Collections.singletonList(task)));
                 } else {
                     map.get(i).add(task);
                 }

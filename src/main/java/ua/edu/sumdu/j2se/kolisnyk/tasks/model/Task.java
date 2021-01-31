@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -21,11 +23,11 @@ public class Task implements Cloneable, Serializable {
     public Task(String title, LocalDateTime time) {
 
         if (title == null) {
-            throw new NullPointerException("Parameter title cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TITLE_NOT_NULL.getMessage());
         }
 
         if (time == null) {
-            throw new IllegalArgumentException("Parameter time cannot be null!");
+            throw new IllegalArgumentException(ExceptionMessage.TIME_NOT_NULL.getMessage());
         }
 
         start = time;
@@ -38,19 +40,19 @@ public class Task implements Cloneable, Serializable {
     public Task(String title, LocalDateTime start, LocalDateTime end, int interval) {
 
         if (title == null) {
-            throw new NullPointerException("Parameter title cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TITLE_NOT_NULL.getMessage());
         }
 
         if (start == null || end == null) {
-            throw new NullPointerException("Parameters start and end cannot be null!");
+            throw new NullPointerException(ExceptionMessage.START_AND_END_NOT_NULL.getMessage());
         }
 
         if (end.compareTo(start) < 0) {
-            throw new IllegalArgumentException("Start time  cannot be less then end time!");
+            throw new IllegalArgumentException(ExceptionMessage.START_AFTER_END.getMessage());
         }
 
         if (interval < 0) {
-            throw new IllegalArgumentException("Period cannot be less then zero!");
+            throw new IllegalArgumentException(ExceptionMessage.LESS_THEN_ZERO.getMessage());
         }
 
         if (interval == 0) {
@@ -70,7 +72,7 @@ public class Task implements Cloneable, Serializable {
 
     public void setTitle(String title) {
         if (title == null) {
-            throw new NullPointerException("Parameter title cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TITLE_NOT_NULL.getMessage());
         }
 
         this.title = title;
@@ -91,7 +93,7 @@ public class Task implements Cloneable, Serializable {
     public void setTime(LocalDateTime time) {
 
         if (time == null) {
-            throw new NullPointerException("Time cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TIME_NOT_NULL.getMessage());
         }
 
         start = time;
@@ -114,15 +116,15 @@ public class Task implements Cloneable, Serializable {
     public void setTime(LocalDateTime start, LocalDateTime end, int interval) {
 
         if (start == null || end == null) {
-            throw new NullPointerException("Parameter time cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TIME_NOT_NULL.getMessage());
         }
 
         if (interval < 0) {
-            throw new IllegalArgumentException("Period cannot be less then zero!");
+            throw new IllegalArgumentException(ExceptionMessage.LESS_THEN_ZERO.getMessage());
         }
 
         if (end.compareTo(start) < 0) {
-            throw new IllegalArgumentException("Start time  cannot be less then end time!");
+            throw new IllegalArgumentException(ExceptionMessage.START_AFTER_END.getMessage());
         }
 
         if (interval == 0) {
@@ -142,7 +144,7 @@ public class Task implements Cloneable, Serializable {
     public LocalDateTime nextTimeAfter(LocalDateTime current) {
 
         if (current == null) {
-            throw new NullPointerException("Parameter current cannot be null!");
+            throw new NullPointerException(ExceptionMessage.CURRENT_NOT_NULL.getMessage());
         }
 
         if (!active) {

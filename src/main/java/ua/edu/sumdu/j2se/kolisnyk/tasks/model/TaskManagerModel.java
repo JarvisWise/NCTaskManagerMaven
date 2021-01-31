@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
 import org.apache.log4j.Logger;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +20,8 @@ import static ua.edu.sumdu.j2se.kolisnyk.tasks.model.Tasks.calendar;
 public class TaskManagerModel {
 
     public static final Logger log = Logger.getLogger(TaskManagerModel.class);
-    private AbstractTaskList taskList;
-    private File dataFile;
+    private final AbstractTaskList taskList;
+    private final File dataFile;
 
     /**
      * This Constructor initialize model for application
@@ -38,19 +39,19 @@ public class TaskManagerModel {
                     log.info("data.json file created");
                 } else {
                     log.error("data.json file was not created");
-                    throw new IOException("File to save data was not created!");
+                    throw new IOException(ExceptionMessage.FILE_NOT_CREATED.getMessage());
                 }
             } else {
                 try {
                     readTaskListFromRes();
                 } catch (IOException e) {
-                    log.fatal("Task list did not read correct, an unexpected situation", e);
-                    throw new IOException("Task list did not read correct", e);
+                    log.fatal(ExceptionMessage.INCORRECT_READ.getMessage() + ", an unexpected situation", e);
+                    throw new IOException(ExceptionMessage.INCORRECT_READ.getMessage(), e);
                 }
             }
         } catch (IOException e) {
-            log.fatal("Problem with source data", e);
-            throw new IOException("Problem with source data", e);
+            log.fatal(ExceptionMessage.PROBLEM_WITH_SOURCE_DATA.getMessage(), e);
+            throw new IOException(ExceptionMessage.PROBLEM_WITH_SOURCE_DATA.getMessage(), e);
         }
     }
 
@@ -86,8 +87,8 @@ public class TaskManagerModel {
         try {
             TaskIO.readText(taskList, dataFile);
         } catch (IOException e) {
-            log.warn("Reading from file failed", e);
-            throw new IOException("Reading from file failed", e);
+            log.warn(ExceptionMessage.READ_FAILED.getMessage(), e);
+            throw new IOException(ExceptionMessage.READ_FAILED.getMessage(), e);
         }
     }
 
@@ -101,8 +102,8 @@ public class TaskManagerModel {
         try {
             TaskIO.writeText(taskList, dataFile);
         } catch (IOException e) {
-            log.warn("Writing to file failed", e);
-            throw new IOException("Writing to file failed", e);
+            log.warn(ExceptionMessage.WRITE_FAILED.getMessage(), e);
+            throw new IOException(ExceptionMessage.WRITE_FAILED.getMessage(), e);
         }
     }
 

@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
+
 import java.util.Iterator;
 
 /**
@@ -64,7 +66,7 @@ public class LinkedTaskList extends AbstractTaskList {
 
     public Task getTask(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("uncorrect index of list");
+            throw new IndexOutOfBoundsException(ExceptionMessage.INCORRECT_INDEX.getMessage());
         } else {
             NodeTask element = first;
             for (int i = 0; i != index; i++) {
@@ -174,7 +176,7 @@ public class LinkedTaskList extends AbstractTaskList {
         @Override
         public void remove() {
             if (lastRet == null) {
-                throw new IllegalStateException("Out of list interval!");
+                throw new IllegalStateException(ExceptionMessage.INTERVAL_OUT.getMessage());
             } else {
                 LinkedTaskList.this.remove(lastRet.value);
                 lastRet = null;

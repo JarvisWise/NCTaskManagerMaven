@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertHeader;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertTitle;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ViewFilePath;
 import ua.edu.sumdu.j2se.kolisnyk.tasks.model.Task;
 
 import java.util.stream.Stream;
@@ -17,7 +20,7 @@ import java.util.stream.Stream;
 
 public class TaskManagerMenuController {
 
-    public ListView taskList;
+    public ListView<String> taskList;
 
     /**
      * Initialize this scene
@@ -34,7 +37,7 @@ public class TaskManagerMenuController {
      */
 
     public void onClickedAddTask(ActionEvent actionEvent) {
-        Controller.changeScene("/view/AddTaskView.fxml", actionEvent);
+        Controller.changeScene(ViewFilePath.ADD_TASK_VIEW_PATH.getPath(), actionEvent);
     }
 
     /**
@@ -44,7 +47,7 @@ public class TaskManagerMenuController {
      */
 
     public void onClickedCalendar(ActionEvent actionEvent) {
-        Controller.changeScene("/view/CalendarView.fxml", actionEvent);
+        Controller.changeScene(ViewFilePath.CALENDAR_VIEW_PATH.getPath(), actionEvent);
     }
 
     /**
@@ -72,14 +75,14 @@ public class TaskManagerMenuController {
 
     public void onClickEditTask(MouseEvent mouseEvent) {
         if (Controller.model.getTaskList().size() == 0) {
-            Controller.showWarningAlert("Wrong action",
-                    "Empty task list",
+            Controller.showWarningAlert(AlertTitle.WRONG_ACTION.getTitle(),
+                    AlertHeader.EMPTY_LIST.getHeader(),
                     "Task list is empty, you cannot edit any task");
             return;
         }
 
         EditTaskController.setSelectedTask(Controller.model.getTaskList().getTask(taskList.getSelectionModel().getSelectedIndex()));
-        Controller.changeScene("/view/EditTaskView.fxml", mouseEvent);
+        Controller.changeScene(ViewFilePath.EDIT_TASK_VIEW_PATH.getPath(), mouseEvent);
     }
 }
 

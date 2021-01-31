@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
@@ -39,11 +41,11 @@ public abstract class AbstractTaskList implements Iterable<Task>, Cloneable, Ser
     public final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) {
 
         if (from == null || to == null) {
-            throw new NullPointerException("Time  cannot be null!");
+            throw new NullPointerException(ExceptionMessage.TIME_NOT_NULL.getMessage());
         }
 
         if (to.compareTo(from) < 0) {
-            throw new IllegalArgumentException("From time  cannot be less then to time!");
+            throw new IllegalArgumentException(ExceptionMessage.FROM_LESS_THEN_TO.getMessage());
         }
 
         AbstractTaskList list = TaskListFactory.createTaskList(type);

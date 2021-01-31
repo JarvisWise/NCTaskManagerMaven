@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ExceptionMessage;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -23,7 +25,7 @@ public class ArrayTaskList extends AbstractTaskList {
     public ArrayTaskList(ArrayTaskList list) {
 
         if (list == null) {
-            throw new NullPointerException("Argument list cannot be null!");
+            throw new NullPointerException(ExceptionMessage.LIST_NOT_NULL.getMessage());
         }
 
         array = new Task[list.array.length];
@@ -65,7 +67,7 @@ public class ArrayTaskList extends AbstractTaskList {
 
     public Task getTask(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Uncorrect index of list");
+            throw new IndexOutOfBoundsException(ExceptionMessage.INCORRECT_INDEX.getMessage());
         } else {
             return array[index];
         }
@@ -137,7 +139,7 @@ public class ArrayTaskList extends AbstractTaskList {
         @Override
         public Task next() {
             if (cursor >= size) {
-                throw new NoSuchElementException("Out of array interval!");
+                throw new NoSuchElementException(ExceptionMessage.INTERVAL_OUT.getMessage());
             }
             lastRet = cursor;
             return array[cursor++];
@@ -146,7 +148,7 @@ public class ArrayTaskList extends AbstractTaskList {
         @Override
         public void remove() {
             if (lastRet < 0) {
-                throw new IllegalStateException("Out of array interval!");
+                throw new IllegalStateException(ExceptionMessage.INTERVAL_OUT.getMessage());
             }
             ArrayTaskList.this.remove(array[lastRet]);
             cursor = lastRet--;

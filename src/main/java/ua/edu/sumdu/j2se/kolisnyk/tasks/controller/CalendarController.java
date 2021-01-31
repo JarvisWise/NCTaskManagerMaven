@@ -6,14 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertHeader;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.AlertTitle;
+import ua.edu.sumdu.j2se.kolisnyk.tasks.constant.strings.ViewFilePath;
 import ua.edu.sumdu.j2se.kolisnyk.tasks.model.Task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.SortedMap;
+
+import static ua.edu.sumdu.j2se.kolisnyk.tasks.controller.Controller.extractLocalDateTime;
 
 /**
  * Class CalendarController is responsible for
@@ -22,12 +24,11 @@ import java.util.SortedMap;
 
 public class CalendarController {
 
-    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
     public DatePicker calendarStartDateFiled;
     public TextField calendarStartTimeFiled;
     public DatePicker calendarEndDateFiled;
     public TextField calendarEndTimeFiled;
-    public ListView calendarList;
+    public ListView<String> calendarList;
 
     /**
      * This method check all fields and show calendar
@@ -35,41 +36,30 @@ public class CalendarController {
 
     public void onClickShowCalendarButton() {
 
-        LocalDateTime startDateTime;
-        LocalDateTime endDateTime;
+        LocalDateTime startDateTime = extractLocalDateTime(calendarStartDateFiled, calendarStartTimeFiled,
+                "Please enter the start time correct");
 
-        try {
-            LocalDate startLocalDate = calendarStartDateFiled.getValue();
-            LocalTime startLocalTime = LocalTime.parse(calendarStartTimeFiled.getText(), formatterTime);
-            startDateTime = startLocalDate.atTime(startLocalTime);
-        } catch (Exception e) {
-            Controller.showWarningAlert("Wrong input",
-                    "Time Field",
-                    "Please enter the start time correct");
+        if (startDateTime == null) {
             return;
         }
 
         if (startDateTime.compareTo(LocalDateTime.now()) < 0) {
-            Controller.showWarningAlert("Wrong input",
-                    "Start in past",
+            Controller.showWarningAlert(AlertTitle.WRONG_INPUT.getTitle(),
+                    AlertHeader.START_IN_PAST.getHeader(),
                     "Start time cannot be before current time");
             return;
         }
 
-        try {
-            LocalDate endLocalDate = calendarEndDateFiled.getValue();
-            LocalTime endLocalTime = LocalTime.parse(calendarEndTimeFiled.getText(), formatterTime);
-            endDateTime = endLocalDate.atTime(endLocalTime);
-        } catch (Exception e) {
-            Controller.showWarningAlert("Wrong input",
-                    "Time Field",
-                    "Please enter the end time correct");
+        LocalDateTime endDateTime = extractLocalDateTime(calendarEndDateFiled, calendarEndTimeFiled,
+                "Please enter the end time correct");
+
+        if (endDateTime == null) {
             return;
         }
 
         if (endDateTime.compareTo(startDateTime) < 0) {
-            Controller.showWarningAlert("Wrong input",
-                    "Start and end time",
+            Controller.showWarningAlert(AlertTitle.WRONG_INPUT.getTitle(),
+                    AlertHeader.START_AND_END.getHeader(),
                     "Start time cannot be after end time");
             return;
         }
@@ -92,7 +82,7 @@ public class CalendarController {
      */
 
     public void onClickCancelButton(ActionEvent actionEvent) {
-        Controller.changeScene("/view/TaskManagerMenuView.fxml", actionEvent);
+        Controller.changeScene(ViewFilePath.TASK_MENU_MANAGER_VIEW_PATH.getPath(), actionEvent);
     }
 }
 

@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 
 public class TaskIO {
 
-    private static ZoneId zone = ZoneId.systemDefault();
+    private static final ZoneId zone = ZoneId.systemDefault();
 
 
     public static void write(AbstractTaskList tasks, OutputStream out) throws IOException {
