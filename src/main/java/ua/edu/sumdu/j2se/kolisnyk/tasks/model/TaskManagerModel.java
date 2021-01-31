@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
 import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,13 +10,21 @@ import java.util.SortedMap;
 
 import static ua.edu.sumdu.j2se.kolisnyk.tasks.model.Tasks.calendar;
 
+/**
+ * Class TaskManagerModel is responsible for
+ * storing the main fields and methods
+ * of the model of this application
+ */
+
 public class TaskManagerModel {
+
     public static final Logger log = Logger.getLogger(TaskManagerModel.class);
     private AbstractTaskList taskList;
     private File dataFile;
 
     /**
      * This Constructor initialize model for application
+     *
      * @throws IOException problem with file system
      */
 
@@ -25,7 +34,7 @@ public class TaskManagerModel {
         taskList = new ArrayTaskList();
         try {
             if (!dataFile.exists()) {
-                if(dataFile.createNewFile()) {
+                if (dataFile.createNewFile()) {
                     log.info("data.json file created");
                 } else {
                     log.error("data.json file was not created");
@@ -41,12 +50,13 @@ public class TaskManagerModel {
             }
         } catch (IOException e) {
             log.fatal("Problem with source data", e);
-            throw new IOException("Problem with source data",e);
+            throw new IOException("Problem with source data", e);
         }
     }
 
     /**
      * Method for take taskList
+     *
      * @return taskList
      */
 
@@ -56,8 +66,9 @@ public class TaskManagerModel {
 
     /**
      * Method for form calendar for taskList
+     *
      * @param start start time for calendar
-     * @param end end time for calendar
+     * @param end   end time for calendar
      * @return formed calendar
      */
 
@@ -67,6 +78,7 @@ public class TaskManagerModel {
 
     /**
      * Method for read taskList from dataFile
+     *
      * @throws IOException problems with reading from file
      */
 
@@ -81,6 +93,7 @@ public class TaskManagerModel {
 
     /**
      * Method for write taskList to dataFile
+     *
      * @throws IOException problems with writing to file
      */
 
@@ -95,12 +108,13 @@ public class TaskManagerModel {
 
     /**
      * Method for add task to taskList
+     *
      * @param task task for add
      * @throws IOException problems with writing to file
      */
 
     public void addToTaskList(Task task) throws IOException {
-        if(task == null) {
+        if (task == null) {
             return;
         }
         taskList.add(task);
@@ -109,6 +123,7 @@ public class TaskManagerModel {
 
     /**
      * Method for change value in taskList
+     *
      * @param oldValue old value of task
      * @param newValue new value of task
      * @throws IOException problems with writing to file
@@ -121,6 +136,7 @@ public class TaskManagerModel {
 
     /**
      * Method for delete task from taskList
+     *
      * @param task task for remove
      * @throws IOException problems with writing to file
      */

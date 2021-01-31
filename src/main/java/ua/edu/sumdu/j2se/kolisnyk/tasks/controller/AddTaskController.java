@@ -14,7 +14,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class AddTaskController is responsible for
+ * adding a new task to the task list
+ */
+
 public class AddTaskController {
+
+    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
     public TextField titleField;
     public DatePicker startDateField;
     public TextField startTimeField;
@@ -24,11 +32,10 @@ public class AddTaskController {
     public TextField endTimeField;
     public TextField intervalField;
     public VBox forRepeatedTask;
-    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-    private static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     /**
      * method react on Add button clicked, check all fields and add new task to task list
+     *
      * @param actionEvent current event
      */
 
@@ -107,6 +114,7 @@ public class AddTaskController {
 
     /**
      * This method change this scene on TaskManagerMenu
+     *
      * @param actionEvent current event
      */
 

@@ -4,14 +4,21 @@ import java.io.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
 import com.google.gson.Gson;
 
+/**
+ * Class TaskIO is responsible for
+ * writing and reading task lists
+ */
+
 public class TaskIO {
+
     private static ZoneId zone = ZoneId.systemDefault();
 
 
     public static void write(AbstractTaskList tasks, OutputStream out) throws IOException {
-        try (DataOutputStream outStream = new DataOutputStream(new BufferedOutputStream(out))){
+        try (DataOutputStream outStream = new DataOutputStream(new BufferedOutputStream(out))) {
             outStream.writeInt(tasks.size());
             for (Task task : tasks) {
                 outStream.writeInt(task.getTitle().length());
@@ -72,7 +79,7 @@ public class TaskIO {
 
         try (BufferedReader reader = new BufferedReader(in)) {
             String text = reader.readLine();
-            if(text != null) {
+            if (text != null) {
                 AbstractTaskList taskList = new Gson().fromJson(text, tasks.getClass());
                 for (Task task : taskList) {
                     tasks.add(task);

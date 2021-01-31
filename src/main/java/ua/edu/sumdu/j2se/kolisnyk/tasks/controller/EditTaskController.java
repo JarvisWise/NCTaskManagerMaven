@@ -18,7 +18,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class EditTaskController is responsible for
+ * edit a exist task
+ */
+
 public class EditTaskController {
+
+    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static Task selectedTask;
     public TextField titleField;
     public TextField startTimeField;
     public DatePicker startDateField;
@@ -28,12 +37,10 @@ public class EditTaskController {
     public TextField endTimeField;
     public TextField intervalField;
     public VBox forRepeatedTask;
-    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-    private static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private static Task selectedTask;
 
     /**
      * set value of task that will be edited or deleted
+     *
      * @param st selected task in TaskManager Scene
      */
 
@@ -45,7 +52,7 @@ public class EditTaskController {
      * Initialize this scene
      */
 
-    public void initialize(){
+    public void initialize() {
         initTaskView();
     }
 
@@ -54,7 +61,7 @@ public class EditTaskController {
      */
 
     private void initTaskView() {
-        if (selectedTask != null ) {
+        if (selectedTask != null) {
             titleField.setText(selectedTask.getTitle());
 
             startDateField.setValue(selectedTask.getStartTime().toLocalDate());
@@ -74,7 +81,7 @@ public class EditTaskController {
             try {
                 Parent TaskManagerMenuParent = FXMLLoader.load(Controller.class.getResource("../view/TaskManagerMenuView.fxml"));
                 Scene TaskManagerMenuScene = new Scene(TaskManagerMenuParent);
-                Stage currentStage = (Stage)  intervalField.getScene().getWindow();
+                Stage currentStage = (Stage) intervalField.getScene().getWindow();
                 currentStage.setScene(TaskManagerMenuScene);
             } catch (IOException e) {
                 TaskManagerModel.log.error("Scene cannot be changed", e);
@@ -84,6 +91,7 @@ public class EditTaskController {
 
     /**
      * method react on edit button clicked, check all fields and change current task
+     *
      * @param actionEvent current event
      */
 
@@ -92,7 +100,7 @@ public class EditTaskController {
         LocalDateTime startDateTime;
 
         String title = titleField.getText();
-        if(titleField.getText().equals("")) {
+        if (titleField.getText().equals("")) {
             Controller.showWarningAlert("Wrong input",
                     "Title field",
                     "Please enter the title");
@@ -101,7 +109,7 @@ public class EditTaskController {
 
         try {
             LocalDate startLocalDate = startDateField.getValue();
-            LocalTime startLocalTime = LocalTime.parse(startTimeField.getText(),formatterTime);
+            LocalTime startLocalTime = LocalTime.parse(startTimeField.getText(), formatterTime);
             startDateTime = startLocalDate.atTime(startLocalTime);
         } catch (Exception e) {
             Controller.showWarningAlert("Wrong input",
@@ -127,9 +135,9 @@ public class EditTaskController {
 
             try {
                 LocalDate endLocalDate = endDateField.getValue();
-                LocalTime endLocalTime = LocalTime.parse(endTimeField.getText(),formatterTime);
+                LocalTime endLocalTime = LocalTime.parse(endTimeField.getText(), formatterTime);
                 endDateTime = endLocalDate.atTime(endLocalTime);
-                interval = (LocalTime.parse(intervalField.getText(),formatterInterval)).toSecondOfDay();
+                interval = (LocalTime.parse(intervalField.getText(), formatterInterval)).toSecondOfDay();
             } catch (Exception e) {
                 Controller.showWarningAlert("Wrong input",
                         "Time Field",
@@ -161,9 +169,9 @@ public class EditTaskController {
     }
 
 
-
     /**
      * method react on delete button clicked and delete current task
+     *
      * @param actionEvent current event
      */
 
@@ -182,12 +190,13 @@ public class EditTaskController {
 
     /**
      * This method change this scene on TaskManagerMenu
+     *
      * @param actionEvent current event
      */
 
     public void onClickCancelButton(ActionEvent actionEvent) {
         selectedTask = null;
-        Controller.changeScene("/view/TaskManagerMenuView.fxml",actionEvent);
+        Controller.changeScene("/view/TaskManagerMenuView.fxml", actionEvent);
     }
 
     /**
@@ -196,7 +205,7 @@ public class EditTaskController {
      */
 
     public void onChangedRepeated() {
-        if(checkRepeated.isSelected()) {
+        if (checkRepeated.isSelected()) {
             forRepeatedTask.setVisible(true);
         } else {
             forRepeatedTask.setVisible(false);

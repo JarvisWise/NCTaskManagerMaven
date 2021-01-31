@@ -4,9 +4,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Class ArrayTaskList extends AbstractTaskList
+ * and implement task list using array
+ */
+
 public class ArrayTaskList extends AbstractTaskList {
-    private Task[] array;
+
     private static final int START_LENGTH = 10;
+    private Task[] array;
 
     public ArrayTaskList() {
         array = new Task[START_LENGTH];
@@ -68,7 +74,7 @@ public class ArrayTaskList extends AbstractTaskList {
     public void setTask(Task oldValue, Task newValue) {
         if (oldValue != null || newValue != null) {
             int i = 0;
-            for(Task task: this) {
+            for (Task task : this) {
                 if (task.equals(oldValue)) {
                     array[i] = newValue;
                 }

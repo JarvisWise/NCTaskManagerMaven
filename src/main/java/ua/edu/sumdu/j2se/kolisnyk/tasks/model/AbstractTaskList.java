@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
+/**
+ * Class AbstractTaskList is template for
+ * list with objects of type Task
+ */
+
 public abstract class AbstractTaskList implements Iterable<Task>, Cloneable, Serializable {
 
+    private static final long serialVersionUID = 1;
     protected int size;
     protected ListTypes.types type;
-    private static final long serialVersionUID = 1;
 
 
     public abstract void add(Task task);
@@ -31,7 +36,7 @@ public abstract class AbstractTaskList implements Iterable<Task>, Cloneable, Ser
         return streamBuilder.build();
     }
 
-    public  final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) {
+    public final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) {
 
         if (from == null || to == null) {
             throw new NullPointerException("Time  cannot be null!");

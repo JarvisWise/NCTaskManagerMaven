@@ -15,13 +15,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.SortedMap;
 
+/**
+ * Class CalendarController is responsible for
+ * formation and display task calendar
+ */
+
 public class CalendarController {
+
+    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
     public DatePicker calendarStartDateFiled;
     public TextField calendarStartTimeFiled;
     public DatePicker calendarEndDateFiled;
     public TextField calendarEndTimeFiled;
     public ListView calendarList;
-    private static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
 
     /**
      * This method check all fields and show calendar
@@ -34,7 +40,7 @@ public class CalendarController {
 
         try {
             LocalDate startLocalDate = calendarStartDateFiled.getValue();
-            LocalTime startLocalTime = LocalTime.parse(calendarStartTimeFiled.getText(),formatterTime);
+            LocalTime startLocalTime = LocalTime.parse(calendarStartTimeFiled.getText(), formatterTime);
             startDateTime = startLocalDate.atTime(startLocalTime);
         } catch (Exception e) {
             Controller.showWarningAlert("Wrong input",
@@ -52,7 +58,7 @@ public class CalendarController {
 
         try {
             LocalDate endLocalDate = calendarEndDateFiled.getValue();
-            LocalTime endLocalTime = LocalTime.parse(calendarEndTimeFiled.getText(),formatterTime);
+            LocalTime endLocalTime = LocalTime.parse(calendarEndTimeFiled.getText(), formatterTime);
             endDateTime = endLocalDate.atTime(endLocalTime);
         } catch (Exception e) {
             Controller.showWarningAlert("Wrong input",
@@ -71,9 +77,9 @@ public class CalendarController {
         SortedMap<LocalDateTime, Set<Task>> calendar = Controller.model.getCalendar(startDateTime, endDateTime);
         ObservableList<String> obsCalendarList = FXCollections.observableArrayList();
 
-        for (SortedMap.Entry<LocalDateTime, Set<Task>> entry: calendar.entrySet()) {
-            for (Task task: entry.getValue()) {
-                obsCalendarList.add("Time("+ entry.getKey()+") Title("+task.getTitle()+")");
+        for (SortedMap.Entry<LocalDateTime, Set<Task>> entry : calendar.entrySet()) {
+            for (Task task : entry.getValue()) {
+                obsCalendarList.add("Time(" + entry.getKey() + ") Title(" + task.getTitle() + ")");
             }
         }
         calendarList.setItems(obsCalendarList);
@@ -81,11 +87,12 @@ public class CalendarController {
 
     /**
      * This method change this scene on TaskManagerMenu
+     *
      * @param actionEvent current event
      */
 
     public void onClickCancelButton(ActionEvent actionEvent) {
-        Controller.changeScene("/view/TaskManagerMenuView.fxml",actionEvent);
+        Controller.changeScene("/view/TaskManagerMenuView.fxml", actionEvent);
     }
 }
 

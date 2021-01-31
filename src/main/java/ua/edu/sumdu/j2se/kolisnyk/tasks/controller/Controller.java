@@ -16,6 +16,11 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.SortedMap;
 
+/**
+ * Class Controller is responsible for
+ * storing and using model part of application
+ */
+
 public class Controller {
 
     public static TaskManagerModel model;
@@ -27,7 +32,7 @@ public class Controller {
             notificationStart();
             isInitialize = true;
         } catch (Exception e) {
-            TaskManagerModel.log.fatal("Fatal exception for application",e);
+            TaskManagerModel.log.fatal("Fatal exception for application", e);
 
             Controller.showWarningAlert("Fatal Error",
                     "System failed",
@@ -38,7 +43,8 @@ public class Controller {
 
     /**
      * This method change current scene on new scene
-     * @param path path to scene that will be opened
+     *
+     * @param path  path to scene that will be opened
      * @param event event of current stage
      */
 
@@ -55,8 +61,9 @@ public class Controller {
 
     /**
      * show new warning alert for some situation
-     * @param title title of alert
-     * @param header header of alert
+     *
+     * @param title   title of alert
+     * @param header  header of alert
      * @param content content of alert
      */
 
@@ -66,10 +73,11 @@ public class Controller {
 
     /**
      * show new alert for some situation with some
-     * @param title title of alert
-     * @param header header of alert
+     *
+     * @param title   title of alert
+     * @param header  header of alert
      * @param content content of alert
-     * @param type type of alert
+     * @param type    type of alert
      */
 
     private static void showAlert(String title, String header, String content, Alert.AlertType type) {
@@ -110,7 +118,7 @@ public class Controller {
                     Platform.runLater(() ->
                             Controller.showAlert("Incoming tasks",
                                     "Within a minute you need to complete the following tasks.",
-                                    "Tasks: "+ finalStr,
+                                    "Tasks: " + finalStr,
                                     Alert.AlertType.INFORMATION)
                     );
                 }

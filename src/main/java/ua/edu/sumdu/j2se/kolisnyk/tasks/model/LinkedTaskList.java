@@ -2,7 +2,13 @@ package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 
 import java.util.Iterator;
 
+/**
+ * Class LinkedTaskList extends AbstractTaskList
+ * and implement task list using nodes
+ */
+
 public class LinkedTaskList extends AbstractTaskList {
+
     private NodeTask first;
     private NodeTask last;
 

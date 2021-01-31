@@ -3,9 +3,15 @@ package ua.edu.sumdu.j2se.kolisnyk.tasks.model;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Class Tasks is responsible for
+ * storing methods for use by
+ * non-AbstractTaskList containers
+ */
+
 public class Tasks {
 
-    public  static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
+    public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
 
         if (tasks == null) {
             throw new NullPointerException("Tasks cannot be null!");
@@ -21,8 +27,8 @@ public class Tasks {
 
         ArrayList<Task> list = new ArrayList<>();
 
-        for (Task task: tasks) {
-            if(task.nextTimeAfter(start) != null && task.nextTimeAfter(start).compareTo(end) <= 0) {
+        for (Task task : tasks) {
+            if (task.nextTimeAfter(start) != null && task.nextTimeAfter(start).compareTo(end) <= 0) {
                 list.add(task);
             }
         }
@@ -54,7 +60,7 @@ public class Tasks {
                 if (map.get(i) == null) {
                     HashSet<Task> set = new HashSet<>();
                     set.add(task);
-                    map.put(i,set);
+                    map.put(i, set);
                     //map.put(i, new HashSet<Task>(Collections.singletonList(task)));
                 } else {
                     map.get(i).add(task);

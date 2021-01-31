@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Class Task is responsible for
+ * for storing information about task
+ */
+
 public class Task implements Cloneable, Serializable {
 
+    private static final long serialVersionUID = 1;
     private String title;
     private LocalDateTime start;
     private LocalDateTime end;
     private int interval;
     private boolean active;
-    private static final long serialVersionUID = 1;
 
     public Task(String title, LocalDateTime time) {
 
@@ -194,13 +199,13 @@ public class Task implements Cloneable, Serializable {
         if (interval == 0) {
             strTask = "Title: " + title +
                     " Time: " + start +
-                    " Active: " +  (active?"yes":"no")+"" ;
+                    " Active: " + (active ? "yes" : "no") + "";
         } else {
             strTask = "Title: " + title
                     + " Start: " + start
                     + " End: " + end
                     + " Interval (sec): " + interval
-                    + " Active: " + (active?"yes":"no");
+                    + " Active: " + (active ? "yes" : "no");
         }
         return strTask;
     }

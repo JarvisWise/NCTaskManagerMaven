@@ -9,6 +9,12 @@ import ua.edu.sumdu.j2se.kolisnyk.tasks.model.Task;
 
 import java.util.stream.Stream;
 
+/**
+ * Class TaskManagerMenuController is responsible for
+ * displaying task list and switching to other tabs
+ * of application
+ */
+
 public class TaskManagerMenuController {
 
     public ListView taskList;
@@ -17,26 +23,28 @@ public class TaskManagerMenuController {
      * Initialize this scene
      */
 
-    public void initialize(){
+    public void initialize() {
         initListView();
     }
 
     /**
      * This method change this scene on AddTaskView, where we can add new task
+     *
      * @param actionEvent current event
      */
 
     public void onClickedAddTask(ActionEvent actionEvent) {
-        Controller.changeScene("/view/AddTaskView.fxml",actionEvent);
+        Controller.changeScene("/view/AddTaskView.fxml", actionEvent);
     }
 
     /**
      * This method change this scene on CalendarView, where we can form calendar
+     *
      * @param actionEvent current event
      */
 
     public void onClickedCalendar(ActionEvent actionEvent) {
-        Controller.changeScene("/view/CalendarView.fxml",actionEvent);
+        Controller.changeScene("/view/CalendarView.fxml", actionEvent);
     }
 
     /**
@@ -58,10 +66,11 @@ public class TaskManagerMenuController {
 
     /**
      * This method change this scene on EditTaskView, where we can edit choosed task
+     *
      * @param mouseEvent current event
      */
 
-    public void onClickEditTask(MouseEvent mouseEvent)  {
+    public void onClickEditTask(MouseEvent mouseEvent) {
         if (Controller.model.getTaskList().size() == 0) {
             Controller.showWarningAlert("Wrong action",
                     "Empty task list",
@@ -70,7 +79,7 @@ public class TaskManagerMenuController {
         }
 
         EditTaskController.setSelectedTask(Controller.model.getTaskList().getTask(taskList.getSelectionModel().getSelectedIndex()));
-        Controller.changeScene("/view/EditTaskView.fxml",mouseEvent);
+        Controller.changeScene("/view/EditTaskView.fxml", mouseEvent);
     }
 }
 
