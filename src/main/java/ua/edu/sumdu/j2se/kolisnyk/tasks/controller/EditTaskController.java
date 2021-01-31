@@ -65,14 +65,14 @@ public class EditTaskController {
             titleField.setText(selectedTask.getTitle());
 
             startDateField.setValue(selectedTask.getStartTime().toLocalDate());
-            startTimeField.setText(formatterTime.format(selectedTask.getStartTime().toLocalTime()));
+            startTimeField.setText(formatterTimeWrite.format(selectedTask.getStartTime().toLocalTime()));
             checkActive.setSelected(selectedTask.isActive());
             checkRepeated.setSelected(selectedTask.isRepeated());
 
             if (selectedTask.isRepeated()) {
                 endDateField.setValue(selectedTask.getEndTime().toLocalDate());
-                endTimeField.setText(formatterTime.format(selectedTask.getEndTime().toLocalTime()));
-                intervalField.setText(formatterInterval.format(LocalTime.ofSecondOfDay(selectedTask.getRepeatInterval())));
+                endTimeField.setText(formatterTimeWrite.format(selectedTask.getEndTime().toLocalTime()));
+                intervalField.setText(formatterIntervalWrite.format(LocalTime.ofSecondOfDay(selectedTask.getRepeatInterval())));
             } else {
                 forRepeatedTask.setVisible(false);
             }

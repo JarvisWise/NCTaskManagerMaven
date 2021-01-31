@@ -18,7 +18,7 @@
             <children>
                 <Label text="Start TIme" />
                 <DatePicker fx:id="startDateField" />
-                <Label text="(HH:MM)" />
+                <Label text="(HH MM)" />
                 <TextField fx:id="startTimeField" />
             </children>
         </HBox>
@@ -30,12 +30,12 @@
                     <children>
                         <Label text="End Time" />
                         <DatePicker fx:id="endDateField" />
-                        <Label text="(HH:MM)" />
+                        <Label text="(HH MM)" />
                         <TextField fx:id="endTimeField" prefHeight="25.0" prefWidth="150.0" />
                     </children></HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="504.0">
                     <children>
-                        <Label text="Interval (HH:MM:SS)" />
+                        <Label text="Interval (HH MM SS)" />
                         <TextField fx:id="intervalField" />
                     </children></HBox>
             </children></VBox>

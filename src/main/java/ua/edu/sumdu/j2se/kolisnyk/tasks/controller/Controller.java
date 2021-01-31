@@ -33,8 +33,10 @@ public class Controller {
 
     public static TaskManagerModel model;
     public static boolean isInitialize = false;
-    public static final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-    public static final DateTimeFormatter formatterInterval = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public static final DateTimeFormatter formatterTimeRead = DateTimeFormatter.ofPattern("H m");
+    public static final DateTimeFormatter formatterIntervalRead = DateTimeFormatter.ofPattern("H m s");
+    public static final DateTimeFormatter formatterTimeWrite = DateTimeFormatter.ofPattern("HH mm");
+    public static final DateTimeFormatter formatterIntervalWrite = DateTimeFormatter.ofPattern("HH mm ss");
 
     static {
         try {
@@ -113,7 +115,7 @@ public class Controller {
 
         try {
             LocalDate localDate = dateFiled.getValue();
-            LocalTime localTime = LocalTime.parse(timeFiled.getText(), formatterTime);
+            LocalTime localTime = LocalTime.parse(timeFiled.getText(), formatterTimeRead);
             localDateTime = localDate.atTime(localTime);
             return localDateTime;
         } catch (Exception e) {
@@ -180,7 +182,7 @@ public class Controller {
 
             int interval;
             try {
-                interval = (LocalTime.parse(intervalField.getText(), formatterInterval)).toSecondOfDay();
+                interval = (LocalTime.parse(intervalField.getText(), formatterIntervalRead)).toSecondOfDay();
             } catch (Exception e) {
                 showWarningAlert(AlertTitle.WRONG_INPUT.getTitle(),
                         AlertHeader.TIME_FIELD.getHeader(),
